@@ -19,7 +19,7 @@ class DataBase:
         connection.close()
         connection = psycopg2.connect(port = "5432", user = "editor", password = "1", database = "postgres")
         cursor = connection.cursor()
-        cursor.execute(f"SELECT create_db('{self.name}')")
+        cursor.execute("SELECT create_db(%s)",(self.name, ))
         cursor.close()
         connection.close()
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
@@ -49,7 +49,7 @@ class DataBase:
         connection.close()
         connection = psycopg2.connect(port = "5432", user = "editor", password = "1", database = "postgres")
         cursor = connection.cursor() #здесь поменяем потом юзера
-        cursor.execute(f"SELECT drop_db('{self.name}')")
+        cursor.execute("SELECT drop_db(%s)", (self.name,))
         connection.commit()
         cursor.close()
         connection.close()
@@ -58,7 +58,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT AddArtist('{name}')")
+        cursor.execute("SELECT AddArtist(%s)", (name, ))
         connection.commit()
         cursor.close()
         connection.close()
@@ -67,7 +67,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT AddConcert({artist_id}, '{date}', {price}, {price_vip})")
+        cursor.execute("SELECT AddConcert(%s, %s, %s, %s)", (artist_id, date, price, price_vip))
         connection.commit()
         cursor.close()
         connection.close()
@@ -76,7 +76,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT AddListener('{first_name}', '{last_name}')")
+        cursor.execute("SELECT AddListener(%s, %s)", (first_name, last_name))
         connection.commit()
         cursor.close()
         connection.close()
@@ -85,7 +85,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT AddBooking({concert_id}, '{is_vip}', {listener_id})")
+        cursor.execute("SELECT AddBooking(%s, %s)", (concert_id, is_vip, listener_id))
         connection.commit()
         cursor.close()
         connection.close()
@@ -156,7 +156,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
        
-        cursor.execute(f"SELECT UpdateArtist('{artist_id}', '{name}')")
+        cursor.execute("SELECT UpdateArtist(%s, %s)", (artist_id, name))
         connection.commit()
         cursor.close()
         connection.close()
@@ -165,7 +165,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT UpdateListener('{listener_id}, {first_name}', '{last_name}')")
+        cursor.execute("SELECT UpdateListener(%s, %s, %s)", (listener_id, first_name, last_name))
         connection.commit()
         cursor.close()
         connection.close()
@@ -174,7 +174,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT UpdateConcert({concert_id}, {artist_id}, '{date}', {price}, {price_vip})")
+        cursor.execute("SELECT UpdateConcert(%s, %s, %s, %s, %s)", (concert_id, artist_id, date, price, price_vip))
         connection.commit()
         cursor.close()
         connection.close()
@@ -183,7 +183,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
        
-        cursor.execute(f"SELECT UpdateBooking({booking_id}, {concert_id}, {listener_id}, '{is_vip}')")
+        cursor.execute("SELECT UpdateBooking(%s, %s, %s, %s)", (booking_id, concert_id, listener_id, is_vip))
         connection.commit()
         cursor.close()
         connection.close()
@@ -192,7 +192,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT DeleteArtistByName('{artist_name}')")
+        cursor.execute("SELECT DeleteArtistByName(%s)", (artist_name,))
         connection.commit()
         cursor.close()
         connection.close()
@@ -201,7 +201,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT DeleteListenerByLastName('{last_name}')")
+        cursor.execute("SELECT DeleteListenerByLastName(%s)", (last_name,))
         connection.commit()
         cursor.close()
         connection.close()
@@ -210,7 +210,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT DeleteListenerByID({id})")
+        cursor.execute("SELECT DeleteListenerByID(%s)", (id, ))
         connection.commit()
         cursor.close()
         connection.close()
@@ -219,7 +219,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT DeleteConcert({id})")
+        cursor.execute("SELECT DeleteConcert(%s)", (id, ))
         connection.commit()
         cursor.close()
         connection.close()
@@ -228,7 +228,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
        
-        cursor.execute(f"SELECT DeleteBooking({id})")
+        cursor.execute("SELECT DeleteBooking(%s)", (id, ))
         connection.commit()
         cursor.close()
         connection.close()
@@ -237,7 +237,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute(f"SELECT * FROM GetArtistByName('{name}')")
+        cursor.execute("SELECT * FROM GetArtistByName(%s)", (name, ))
         result = cursor.fetchall()
         columns = ["ID артиста", "Исполнитель", "Выручка от концертов"]
         if len(result) == 0:
