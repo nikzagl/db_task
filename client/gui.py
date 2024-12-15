@@ -126,8 +126,10 @@ class GUI(customtkinter.CTk):
         combobox_states = ["Исполнители", "Слушатели", "Концерты", "Заявки"]
         states_var = StringVar(value = combobox_states[0]) 
         print(database)
-        combobox = customtkinter.CTkComboBox(self.current_database_window, variable=states_var, values = combobox_states, state="readonly", command = lambda selected: self.change_position(selected, database))
+        combobox = customtkinter.CTkComboBox(self.current_database_window, variable=states_var, values = combobox_states, state="readonly")
         combobox.pack()
+        show_table_button = customtkinter.CTkButton(self.current_database_window, text = "Показать таблицу", command = lambda: self.change_position(combobox.get(), database))
+        show_table_button.pack()
         options_frame = customtkinter.CTkFrame(self.current_database_window)
         add_artist_button = customtkinter.CTkButton(options_frame, text = "Добавить исполнителя", command = lambda: self.add_artist(database, self.current_database_window))
         add_artist_button.grid(row = 1, column = 0)
@@ -187,7 +189,7 @@ class GUI(customtkinter.CTk):
         self.pt.redraw()
 
     def get_values_from_form(self, columns, title, button_text, window):
-        form = customtkinter.CTkToplevel(self)
+        form = customtkinter.CTkToplevel(window)
         
        
         width = 600
