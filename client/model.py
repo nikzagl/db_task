@@ -1,14 +1,16 @@
 import psycopg2
 import pandas as pd
 
+user_name = "postgres"
+password = "1"
 
 class DataBase:
     def __init__(self, name):
         self.name = name
 
     def create(self):
-        connection = psycopg2.connect(port = "5432", user = "postgres", password = "1")
-        cursor = connection.cursor() #здесь поменяем потом юзера
+        connection = psycopg2.connect(port = "5432", user = user_name, password = password)
+        cursor = connection.cursor() 
         with open("client/database_creation.sql", "r") as file:
             database_creation = file.read()
         cursor.execute(database_creation)
@@ -37,8 +39,8 @@ class DataBase:
         connection.close()
     
     def drop(self):
-        connection = psycopg2.connect(port = "5432", user = "postgres", database = "postgres", password = "1")
-        cursor = connection.cursor() #здесь поменяем потом юзера
+        connection = psycopg2.connect(port = "5432", user = user_name, database = "postgres", password = password)
+        cursor = connection.cursor() 
         with open("client/database_creation.sql", "r") as file:
             database_creation = file.read()
         cursor.execute(database_creation)
@@ -47,8 +49,8 @@ class DataBase:
         connection.commit()
         cursor.close()
         connection.close()
-        connection = psycopg2.connect(port = "5432", user = "editor", password = "1", database = "postgres")
-        cursor = connection.cursor() #здесь поменяем потом юзера
+        connection = psycopg2.connect(port = "5432", user = user_name, password = password , database = "postgres")
+        cursor = connection.cursor() 
         cursor.execute("SELECT drop_db(%s)", (self.name,))
         connection.commit()
         cursor.close()
