@@ -41,6 +41,7 @@ class GUI(customtkinter.CTk):
     
     def create_database(self):
         create_database_window = customtkinter.CTkToplevel(self)
+        create_database_window.tilte("Создание базы данных")
         create_database_window.wm_attributes("-topmost", True)
         width = 400
         height = 150
@@ -61,6 +62,7 @@ class GUI(customtkinter.CTk):
     
     def drop_database(self):
         drop_database_window = customtkinter.CTkToplevel(self)
+        drop_database_window.title("Удаление базы данных")
         drop_database_window.wm_attributes("-topmost", True)
         width = 400
         height = 150
@@ -81,6 +83,7 @@ class GUI(customtkinter.CTk):
 
     def choose_database(self):
         choice_database_window = customtkinter.CTkToplevel(self)
+        choice_database_window.title("Выбор базы данных")
         choice_database_window.wm_attributes("-topmost", True)
         width = 400
         height = 150
@@ -190,8 +193,7 @@ class GUI(customtkinter.CTk):
 
     def get_values_from_form(self, columns, title, button_text, window):
         form = customtkinter.CTkToplevel(window)
-        
-       
+        form.title(title)
         width = 600
         height = 200
         x = 400
