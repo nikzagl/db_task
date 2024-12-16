@@ -261,7 +261,8 @@ class GUI(customtkinter.CTk):
         self.get_values_from_form(columns, "Добавить исполнителя", "Добавить", window)
         try:
            db.add_booking(*self.values.get())
-        except:
+        except Exception as e:
+            print(e)
             tk.messagebox.showerror("Ошибка", "Ошибка заполнения полей", parent = window)
         
     def update_artist(self, db_name, window):

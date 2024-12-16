@@ -87,7 +87,7 @@ class DataBase:
         connection = psycopg2.connect(port = "5432", user = "editor", database = self.name, password = "1")
         cursor = connection.cursor()
         
-        cursor.execute("SELECT AddBooking(%s, %s)", (concert_id, is_vip, listener_id))
+        cursor.execute("SELECT AddBooking(%s, %s, %s)", (concert_id, is_vip, listener_id))
         connection.commit()
         cursor.close()
         connection.close()
