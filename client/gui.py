@@ -41,7 +41,7 @@ class GUI(customtkinter.CTk):
     
     def create_database(self):
         create_database_window = customtkinter.CTkToplevel(self)
-        create_database_window.tilte("Создание базы данных")
+        create_database_window.title("Создание базы данных")
         create_database_window.wm_attributes("-topmost", True)
         width = 400
         height = 150
